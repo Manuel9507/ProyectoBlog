@@ -1,0 +1,1 @@
+/home/manuel/proyectos/pro1/app/views/users/show.blade.php
