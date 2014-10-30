@@ -1,7 +1,8 @@
 <?php
 
 class Coment extends \Eloquent {
-	protected $fillable = [];
+	protected $fillable = ['comentario','user_id','post_id'];
+
 
 	public function post()
 	{

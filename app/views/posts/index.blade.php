@@ -13,4 +13,5 @@
 			@endforeach
 		</ul>
 	@endif
+		<p>{{ link_to_route('posts.create', 'Crear un Nuevo Post')}}</p>
 @stop

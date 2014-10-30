@@ -10,7 +10,8 @@ class ComentsController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$coments = Coment::all();
+		$this->layout->content = View::make('coments.index', compact('coments')); 
 	}
 
 	/**
@@ -21,18 +22,23 @@ class ComentsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$this->layout->content = View::make('coments.create', compact ('coment'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /coments
-	 *
+	 * @param Post $post	 
 	 * @return Response
 	 */
-	public function store()
+	public function store(Post $post)
 	{
-		//
+		$input = Input::all();
+		$input['post_id'] = $post->id;
+		$input['user_id'] = 1; //Autor temporal
+		Coment::create( $input );
+
+		return Redirect::route('posts.show', $post->id)->with('Comentario Guardado.');
 	}
 
 	/**
@@ -44,7 +50,7 @@ class ComentsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$this->layout->content = View::make('coments.show', compact('coments')); 
 	}
 
 	/**
@@ -56,7 +62,7 @@ class ComentsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$this->layout->content = View::make('coments.edit', compact('coment'));
 	}
 
 	/**
@@ -75,12 +81,14 @@ class ComentsController extends \BaseController {
 	 * Remove the specified resource from storage.
 	 * DELETE /coments/{id}
 	 *
-	 * @param  int  $id
+	 * @param  Post $post
+	 * @param  Coment $coment
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(Post $post, Coment $coment)
 	{
-		//
+		$coment->delete();
+		return Redirect::route('posts.show', $post->id)->with('message', 'Comentario Eliminado!!!');
 	}
 
 }

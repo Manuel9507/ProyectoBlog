@@ -17,10 +17,12 @@ Route::get('/', function()
 });
 
 Route::model('posts', 'Post');
-
+Route::model('coments', 'Coment');
 Route::bind('posts', function($value, $route) { return Post::whereId($value)->first();});
+Route::bind('coments', function($value, $route) { return Coment::whereId($value)->first();});
 
 Route::resource("posts", "PostsController");
+Route::resource("posts.coments", "ComentsController");
 Route::resource("users", "UsersController");
 Route::resource("coments", "ComentsController");
 Route::resource("logs", "LogsController");
