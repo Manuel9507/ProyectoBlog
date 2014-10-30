@@ -1,7 +1,8 @@
 <?php
 
 class Post extends \Eloquent {
-	protected $fillable = [];
+	//Para que permita la insercion de datos 
+	protected $fillable = ['titulo', 'descripcion', 'imagen', 'contenido', 'tags', 'user_id'];
 
 	/**
 	* One Post belongs to one User 

@@ -22,7 +22,8 @@ class PostsController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$this->layout->content = View::make('posts.create', compact ('post'));
+		
 	}
 
 	/**
@@ -33,7 +34,12 @@ class PostsController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		//almacenar el nuevo Post
+		$input = Input::all();
+		$input['user_id'] = 1; //autor temporal
+		Post::create( $input );
+
+		return Redirect::route('posts.index')->with('message', 'Post Se Ha Creado, Deje de Molestar :D');
 	}
 
 	/**
@@ -52,12 +58,12 @@ class PostsController extends \BaseController {
 	 * Show the form for editing the specified resource.
 	 * GET /posts/{id}/edit
 	 *
-	 * @param  int  $id
+	 * @param Post  $post
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Post $post)
 	{
-		//
+		$this->layout->content = View::make('posts.edit', compact('post'));
 	}
 
 	/**
@@ -69,7 +75,10 @@ class PostsController extends \BaseController {
 	 */
 	public function update(Post  $post)
 	{
-		
+		$input = array_except(Input::all(), '_method');
+		$post->update($input);
+
+		$this->layout->content = View::make('posts.show', compact('post'))->with('message', 'Post Se ha Actualizo');
 	}
 
 	/**

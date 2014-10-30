@@ -1,1 +1,3 @@
-/home/manuel/proyectos/pro1/app/views/coments/edit.blade.php
+{{ Form::model($coment, ['method' => 'PATCH', 'route' => ['coment.destroy', $coment->id]]) }}
+
+{{ Form::close()}}
